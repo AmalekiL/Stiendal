@@ -1,0 +1,2647 @@
+openapi: 3.0.3
+info:
+  title: AdRoll Campaign API
+  description: Manage campaigns with the AdRoll Campaign API.
+  termsOfService: 'https://app.adroll.com/tos.html'
+  version: '3.0'
+  contact:
+    name: AdRoll
+    url: 'https://help.adroll.com/'
+    email: apihelp@adroll.com
+servers:
+  - url: 'https://services.adroll.com/activate/api/v3'
+paths:
+  /adgroup:
+    put:
+      description: Edit an adgroup.
+      tags: []
+      parameters:
+        - in: query
+          name: eid
+          required: true
+          description: EID of the adgroup to edit.
+          schema:
+            type: string
+            minLength: 22
+            maxLength: 22
+      responses:
+        '200':
+          description: An adgroup object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdGroupResponse'
+      requestBody:
+        description: AdGroup edit data.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdGroupEdit'
+    get:
+      description: Fetch an adgroup.
+      tags: []
+      parameters:
+        - in: query
+          name: eid
+          required: true
+          description: EID of requested adgroup
+          schema:
+            type: string
+            minLength: 22
+            maxLength: 22
+      responses:
+        '200':
+          description: An adgroup object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdGroupResponse'
+    post:
+      description: Create an adgroup.
+      tags: []
+      parameters:
+        - in: query
+          name: campaign_eid
+          required: true
+          description: Advertisable EID to create adgroup under.
+          schema:
+            type: string
+            minLength: 22
+            maxLength: 22
+      responses:
+        '200':
+          description: An adgroup object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdGroupResponse'
+      requestBody:
+        description: AdGroup to create.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdGroupCreate'
+  /campaign:
+    put:
+      description: Edit a campaign.
+      tags: []
+      parameters:
+        - in: query
+          name: eid
+          required: true
+          description: EID of the campaign to edit.
+          schema:
+            type: string
+            minLength: 22
+            maxLength: 22
+      responses:
+        '200':
+          description: A campaign object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CampaignResponse'
+      requestBody:
+        description: Campaign edit data.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CampaignEdit'
+    get:
+      description: Fetch a campaign.
+      tags: []
+      parameters:
+        - in: query
+          name: advertisable_eid
+          required: true
+          description: Advertisable EID of requested campaign.
+          schema:
+            type: string
+            minLength: 22
+            maxLength: 22
+        - in: query
+          name: eid
+          required: true
+          description: EID of requested campaign
+          schema:
+            type: string
+            minLength: 22
+            maxLength: 22
+      responses:
+        '200':
+          description: A campaign object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CampaignResponse'
+    post:
+      description: Create a campaign.
+      tags: []
+      parameters:
+        - in: query
+          name: strategy_eid
+          required: true
+          description: Strategy to create campaign under.
+          schema:
+            type: string
+            minLength: 22
+            maxLength: 22
+      responses:
+        '200':
+          description: A campaign object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CampaignResponse'
+      requestBody:
+        description: Campaign to create.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CampaignCreate'
+  /strategy:
+    put:
+      description: Edit a strategy.
+      tags: []
+      parameters:
+        - in: query
+          name: eid
+          required: true
+          description: EID of the strategy to edit.
+          schema:
+            type: string
+            minLength: 22
+            maxLength: 22
+      responses:
+        '200':
+          description: A strategy object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StrategyResponse'
+      requestBody:
+        description: Strategy edit data.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StrategyEdit'
+    get:
+      description: Fetch a strategy.
+      tags: []
+      parameters:
+        - in: query
+          name: eid
+          required: true
+          description: EID of requested strategy
+          schema:
+            type: string
+            minLength: 22
+            maxLength: 22
+      responses:
+        '200':
+          description: A strategy object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StrategyResponse'
+    post:
+      description: Create a strategy.
+      tags: []
+      parameters:
+        - in: query
+          name: advertisable_eid
+          required: true
+          description: Advertisable EID to create strategy under.
+          schema:
+            type: string
+            minLength: 22
+            maxLength: 22
+      responses:
+        '200':
+          description: A strategy object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StrategyResponse'
+      requestBody:
+        description: Strategy to create.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StrategyCreate'
+  /strategy/all:
+    get:
+      description: Get all strategies.
+      tags: []
+      parameters:
+        - in: query
+          name: advertisable_eid
+          required: true
+          description: Advertisable EID to create strategy under.
+          schema:
+            type: string
+            minLength: 22
+            maxLength: 22
+        - in: query
+          name: include_drafts
+          required: false
+          description: Include drafts in the response. Defaults to false.
+          schema:
+            type: boolean
+        - in: query
+          name: cursor
+          required: false
+          description: Cursor used for paginating results
+          schema:
+            type: string
+        - in: query
+          name: paginate
+          required: false
+          description: Enable pagination for the results
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: A list of strategy objects.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StrategyResponse'
+components:
+  schemas:
+    AdGroupResponse:
+      oneOf:
+        - $ref: '#/components/schemas/WebRetargetingAdGroupResponse'
+        - $ref: '#/components/schemas/WebProspectingAdGroupResponse'
+        - $ref: '#/components/schemas/FacebookAdGroupResponse'
+        - $ref: '#/components/schemas/LinkedinAdGroupResponse'
+        - $ref: '#/components/schemas/PinterestAdgroupResponse'
+        - $ref: '#/components/schemas/TiktokAdgroupResponse'
+    AdGroupCreate:
+      oneOf:
+        - $ref: '#/components/schemas/WebRetargetingAdGroupCreate'
+        - $ref: '#/components/schemas/WebProspectingAdGroupCreate'
+    AdGroupEdit:
+      oneOf:
+        - $ref: '#/components/schemas/WebRetargetingAdGroupEdit'
+        - $ref: '#/components/schemas/WebProspectingAdGroupEdit'
+    CampaignResponse:
+      oneOf:
+        - $ref: '#/components/schemas/WebRetargetingCampaignResponse'
+        - $ref: '#/components/schemas/WebProspectingCampaignResponse'
+        - $ref: '#/components/schemas/FacebookCampaignResponse'
+        - $ref: '#/components/schemas/LinkedinCampaignResponse'
+        - $ref: '#/components/schemas/PinterestCampaignResponse'
+        - $ref: '#/components/schemas/TiktokCampaignResponse'
+    CampaignCreate:
+      oneOf:
+        - $ref: '#/components/schemas/WebRetargetingCampaignCreate'
+        - $ref: '#/components/schemas/WebProspectingCampaignCreate'
+    CampaignEdit:
+      oneOf:
+        - $ref: '#/components/schemas/WebRetargetingCampaignEdit'
+        - $ref: '#/components/schemas/WebProspectingCampaignEdit'
+    StrategyBudget:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - daily
+            - monthly
+            - lifetime
+          description: Type of budget
+          example: daily
+        current_month_spend:
+          type: number
+          readOnly: true
+          description: 'Amount spent by this Campaign this month, if a monthly budget is used.'
+          example: 1225
+        goal:
+          type: number
+          minimum: 0
+          description: Budget of campaign in the currency specified by the currency field.
+          example: 350
+        spend:
+          type: number
+          readOnly: true
+          description: 'Amount spent by this campaign till now, if a lifetime or monthly budget is used.'
+          example: 1225
+        is_prorated:
+          type: boolean
+          description: 'When using monthly budgets, this flag will enable prorating if the start date is not the first of the month. Defaults to False.'
+          example: true
+      required:
+        - goal
+        - type
+    StrategyResponse:
+      type: object
+      properties:
+        budget_balancing_automated:
+          type: boolean
+          description: 'Allow our system to smartly allocate your budget among the Strategy''s campaigns to optimize the Strategy performance. If you have this setting turned off, you''ll have to manually set the budget split of the Strategy''s configured campaigns.'
+          example: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: Datetime of Strategy last edit in ISO-8601 in UTC.
+          example: '2017-07-21T22:19:13.824882'
+        name:
+          type: string
+          maxLength: 100
+          description: Name of Strategy.
+          example: My Strategy
+        managed_by_spendtracker:
+          type: boolean
+          readOnly: true
+          description: Boolean indicating if the Strategy is managed by SpendTracker. When a Strategy is managed its budget and kpi settings are controlled (externally) by SpendTracker. For more information please contact your account manager.
+        spend_floor:
+          type: number
+          minimum: 0
+          maximum: 1
+          description: Percentage representing how low the budget fulfillment can go to try to attain the user kpi. - 1 means our algorithm will always try to maximize budget fulfillment (recommended). - 0 means our algorithm might stop spending if that's needed to reach the user KPI goal. You can use the numbers in between to tune our algorithm.
+        budget:
+          $ref: '#/components/schemas/StrategyBudget'
+        start_date:
+          type: string
+          format: date-time
+          description: Start date of Strategy in ISO-8601 format (Responses are in UTC).
+          example: '2017-07-21T22:19:13.824882'
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: Datetime of Strategy creation in ISO-8601 in UTC.
+          example: '2017-07-21T22:19:13.824882'
+        end_date:
+          type: string
+          format: date-time
+          nullable: true
+          description: End date of Strategy in ISO-8601 format (Responses are in UTC).
+          example: '2017-07-21T22:19:13.824882'
+        advertisable_eid:
+          type: string
+          readOnly: true
+          description: EID of the Advertisable the Strategy is attached to. 22 Characters long.
+          example: 9AYYJNU7JTA3NDJNQMFJJY
+        campaigns:
+          type: array
+          description: List of campaigns attached to the strategy.
+          items:
+            $ref: '#/components/schemas/CampaignResponse'
+        is_draft:
+          type: boolean
+          description: Field indicating whether this is a draft Strategy.
+          example: false
+        draft_eid:
+          type: string
+          writeOnly: true
+          minLength: 22
+          maxLength: 22
+          description: EID of draft Strategy to publish.
+          example: BD7JJT2V6JFFFLNXV38VOL
+        currency:
+          type: string
+          enum:
+            - USD
+            - EUR
+            - AUD
+            - GBP
+            - NZD
+            - JPY
+          description: ISO-4217 currency code for budget. This value must match the currency set on the Advertisable'sbilling account.
+          example: USD
+        eid:
+          type: string
+          minLength: 22
+          maxLength: 22
+          description: EID of Strategy.
+          example: BD7JJT2V6JFFFLNXV38VOL
+        status:
+          type: string
+          enum:
+            - live
+            - paused
+            - deleted
+          description: Status of Strategy.
+          example: live
+      required:
+        - budget
+        - currency
+    StrategyCreate:
+      type: object
+      properties:
+        budget_balancing_automated:
+          type: boolean
+          description: 'Allow our system to smartly allocate your budget among the Strategy''s campaigns to optimize the Strategy performance. If you have this setting turned off, you''ll have to manually set the budget split of the Strategy''s configured campaigns.'
+          example: true
+        name:
+          type: string
+          maxLength: 100
+          description: Name of Strategy.
+          example: My Strategy
+        managed_by_spendtracker:
+          type: boolean
+          readOnly: true
+          description: Boolean indicating if the Strategy is managed by SpendTracker. When a Strategy is managed its budget and kpi settings are controlled (externally) by SpendTracker. For more information please contact your account manager.
+        spend_floor:
+          type: number
+          minimum: 0
+          maximum: 1
+          description: Percentage representing how low the budget fulfillment can go to try to attain the user kpi. - 1 means our algorithm will always try to maximize budget fulfillment (recommended). - 0 means our algorithm might stop spending if that's needed to reach the user KPI goal. You can use the numbers in between to tune our algorithm.
+        budget:
+          $ref: '#/components/schemas/StrategyBudget'
+        start_date:
+          type: string
+          format: date-time
+          description: Start date of Strategy in ISO-8601 format (Responses are in UTC).
+          example: '2017-07-21T22:19:13.824882'
+        end_date:
+          type: string
+          format: date-time
+          nullable: true
+          description: End date of Strategy in ISO-8601 format (Responses are in UTC).
+          example: '2017-07-21T22:19:13.824882'
+        is_draft:
+          type: boolean
+          description: Field indicating whether this is a draft Strategy.
+          example: false
+        draft_eid:
+          type: string
+          writeOnly: true
+          minLength: 22
+          maxLength: 22
+          description: EID of draft Strategy to publish.
+          example: BD7JJT2V6JFFFLNXV38VOL
+        currency:
+          type: string
+          enum:
+            - USD
+            - EUR
+            - AUD
+            - GBP
+            - NZD
+            - JPY
+          description: ISO-4217 currency code for budget. This value must match the currency set on the Advertisable'sbilling account.
+          example: USD
+        campaigns:
+          type: array
+          description: List of campaigns to create and attach to the strategy.
+          items:
+            $ref: '#/components/schemas/CampaignCreate'
+      required:
+        - budget
+        - currency
+    CampaigncreateOrEdit:
+      type: object
+      properties: {}
+    StrategyEdit:
+      type: object
+      properties:
+        budget_balancing_automated:
+          type: boolean
+          description: 'Allow our system to smartly allocate your budget among the Strategy''s campaigns to optimize the Strategy performance. If you have this setting turned off, you''ll have to manually set the budget split of the Strategy''s configured campaigns.'
+          example: true
+        managed_by_spendtracker:
+          type: boolean
+          readOnly: true
+          description: Boolean indicating if the Strategy is managed by SpendTracker. When a Strategy is managed its budget and kpi settings are controlled (externally) by SpendTracker. For more information please contact your account manager.
+        spend_floor:
+          type: number
+          minimum: 0
+          maximum: 1
+          description: Percentage representing how low the budget fulfillment can go to try to attain the user kpi. - 1 means our algorithm will always try to maximize budget fulfillment (recommended). - 0 means our algorithm might stop spending if that's needed to reach the user KPI goal. You can use the numbers in between to tune our algorithm.
+        currency:
+          type: string
+          enum:
+            - USD
+            - EUR
+            - AUD
+            - GBP
+            - NZD
+            - JPY
+          description: ISO-4217 currency code for budget. This value must match the currency set on the Advertisable'sbilling account.
+          example: USD
+        status:
+          type: string
+          enum:
+            - live
+            - paused
+            - deleted
+          description: Status of Strategy.
+          example: live
+        name:
+          type: string
+          maxLength: 100
+          description: Name of Strategy.
+          example: My Strategy
+        budget:
+          $ref: '#/components/schemas/StrategyBudget'
+        start_date:
+          type: string
+          format: date-time
+          description: Start date of Strategy in ISO-8601 format (Responses are in UTC).
+          example: '2017-07-21T22:19:13.824882'
+        end_date:
+          type: string
+          format: date-time
+          nullable: true
+          description: End date of Strategy in ISO-8601 format (Responses are in UTC).
+          example: '2017-07-21T22:19:13.824882'
+        is_draft:
+          type: boolean
+          description: Field indicating whether this is a draft Strategy.
+          example: false
+        eid:
+          type: string
+          minLength: 22
+          maxLength: 22
+          description: EID of Strategy.
+          example: BD7JJT2V6JFFFLNXV38VOL
+        campaigns:
+          type: array
+          description: 'List of campaigns to create and attach or modify. All campaigns in here that have an eid will be modified. All items without an eid will be created an attached to the strategy. If an existingcampaigns is not included, the campaign will be deleted.'
+          items:
+            $ref: '#/components/schemas/CampaigncreateOrEdit'
+    VariableListTypeSchema:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - string
+            - number
+            - boolean
+            - datetime
+      required:
+        - type
+    VariableDefSchema:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - string
+            - number
+            - boolean
+            - datetime
+            - array
+        items:
+          $ref: '#/components/schemas/VariableListTypeSchema'
+      required:
+        - type
+    AdgroupSegmentSchema:
+      type: object
+      properties:
+        targeted:
+          type: boolean
+          description: Should we target or exclude this segment.
+          example: true
+        eid:
+          type: string
+          description: Segment EID.
+          example: R1H7HY2OP4EC2UAYHJ6UPS
+      required:
+        - eid
+    AdgroupFlightSchema:
+      type: object
+      properties:
+        start_date:
+          type: string
+          format: date-time
+          description: Start date of flight in ISO-8601 in UTC.
+          example: '2017-07-21T22:19:13.824882'
+        end_date:
+          type: string
+          format: date-time
+          nullable: true
+          description: End date of flight in ISO-8601 in UTC.
+          example: '2017-07-21T22:19:13.824882'
+    AdgroupDeviceTargetSchema:
+      type: object
+      properties:
+        targets_mobile_app:
+          type: boolean
+          default: null
+          nullable: true
+          description: Should the adgroup target mobile app.
+        targets_desktop:
+          type: boolean
+          default: null
+          nullable: true
+          description: Should the adgroup target desktop.
+        targets_mobile_web:
+          type: boolean
+          default: null
+          nullable: true
+          description: Should the adgroup target mobile web.
+    AdgroupAdSchema:
+      type: object
+      properties:
+        status:
+          type: string
+          description: Adgroup ad status
+          example: live
+        eid:
+          type: string
+          description: Ad eid.
+          example: BD7JJT2V6JFFFLNXV38444
+      required:
+        - eid
+        - status
+    AdgroupGeotargetSchema:
+      type: object
+      properties:
+        targeted:
+          type: boolean
+          description: Should we target or exclude this geolocation.
+          example: true
+        eid:
+          type: string
+          description: Geotarget EID.
+          example: R1H7HY2OP4EC2UAYHJ6UPS
+    WebRetargetingAdGroupResponse:
+      type: object
+      properties:
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: Datetime of adgroup last edit in ISO-8601 in UTC.
+          example: '2017-07-21T22:19:13.824882'
+        segments:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdgroupSegmentSchema'
+        name:
+          type: string
+          description: Name of adgroup.
+          example: My AdGroup
+        campaign_eid:
+          type: string
+          readOnly: true
+          minLength: 22
+          maxLength: 22
+          description: EID of campaign this adgroup is in.
+          example: BD7JJT2V6JFFFLNXV38VOL
+        flights:
+          type: array
+          description: AdGroup flights.
+          items:
+            $ref: '#/components/schemas/AdgroupFlightSchema'
+        service:
+          type: string
+          default: web-retargeting
+          enum:
+            - web-retargeting
+          description: Service we should forward the request to.
+        device_targets:
+          $ref: '#/components/schemas/AdgroupDeviceTargetSchema'
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: Datetime of adgroup creation in ISO-8601 in UTC.
+          example: '2017-07-21T22:19:13.824882'
+        ads:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdgroupAdSchema'
+        geotargets:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdgroupGeotargetSchema'
+        eid:
+          type: string
+          minLength: 22
+          maxLength: 22
+          description: EID of adgroup.
+          example: BD7JJT2V6JFFFLNXV38VOL
+        status:
+          type: string
+          enum:
+            - live
+            - paused
+            - deleted
+          description: Status of adgroup.
+          example: live
+    _ProspectingAttributeTargetOption:
+      type: object
+      properties:
+        target:
+          type: boolean
+        name:
+          type: string
+    ProspectingAttributeTarget:
+      type: object
+      properties:
+        options:
+          type: array
+          items:
+            $ref: '#/components/schemas/_ProspectingAttributeTargetOption'
+        name:
+          type: string
+    ProspectingContextualTarget:
+      type: object
+      properties:
+        options:
+          type: array
+          items:
+            $ref: '#/components/schemas/_ProspectingAttributeTargetOption'
+        name:
+          type: string
+        source:
+          type: string
+    WebProspectingAdGroupResponse:
+      type: object
+      properties:
+        attribute_targets:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProspectingAttributeTarget'
+        flights:
+          type: array
+          description: AdGroup flights.
+          items:
+            $ref: '#/components/schemas/AdgroupFlightSchema'
+        contextual_targets:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProspectingContextualTarget'
+        device_targets:
+          $ref: '#/components/schemas/AdgroupDeviceTargetSchema'
+        geotargets:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdgroupGeotargetSchema'
+        auto_audience:
+          type: boolean
+        status:
+          type: string
+          enum:
+            - live
+            - paused
+            - deleted
+          description: Status of adgroup.
+          example: live
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: Datetime of adgroup last edit in ISO-8601 in UTC.
+          example: '2017-07-21T22:19:13.824882'
+        name:
+          type: string
+          description: Name of adgroup.
+          example: My AdGroup
+        campaign_eid:
+          type: string
+          readOnly: true
+          minLength: 22
+          maxLength: 22
+          description: EID of campaign this adgroup is in.
+          example: BD7JJT2V6JFFFLNXV38VOL
+        service:
+          type: string
+          default: web-prospecting
+          enum:
+            - web-prospecting
+          description: Service we should forward the request to.
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: Datetime of adgroup creation in ISO-8601 in UTC.
+          example: '2017-07-21T22:19:13.824882'
+        ads:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdgroupAdSchema'
+        attribute_targets_segment:
+          type: string
+          readOnly: true
+          minLength: 22
+          maxLength: 22
+          description: EID of the attribute segments.
+          example: BD7JJT2V6JFFFLNXV38VOL
+        auto_geo_targets:
+          type: boolean
+        eid:
+          type: string
+          minLength: 22
+          maxLength: 22
+          description: EID of adgroup.
+          example: BD7JJT2V6JFFFLNXV38VOL
+    FacebookAdgroupAdSchema:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of ad
+          example: FB Ad 1
+        status:
+          type: string
+          description: Adgroup ad status
+          example: live
+        eid:
+          type: string
+          description: Ad eid.
+          example: BD7JJT2V6JFFFLNXV38444
+      required:
+        - eid
+        - name
+        - status
+    FacebookAdgroupTargetingPlacementsSchema:
+      type: object
+      properties:
+        messenger_positions:
+          type: array
+          items:
+            type: string
+            enum:
+              - messenger_home
+              - sponsored_messages
+              - story
+        audience_network_positions:
+          type: array
+          items:
+            type: string
+            enum:
+              - classic
+              - instream_video
+              - rewarded_video
+        instagram_positions:
+          type: array
+          items:
+            type: string
+            enum:
+              - stream
+              - story
+              - explore
+        device_platforms:
+          type: array
+          items:
+            type: string
+            enum:
+              - desktop
+              - mobile
+        facebook_positions:
+          type: array
+          items:
+            type: string
+            enum:
+              - feed
+              - desktopfeed
+              - desktop_feed
+              - mobilefeed
+              - mobile_feed
+              - right_hand_column
+              - instant_article
+              - marketplace
+              - video_feeds
+              - story
+              - search
+              - instream_video
+        publisher_platforms:
+          type: array
+          items:
+            type: string
+            enum:
+              - facebook
+              - instagram
+              - messenger
+              - audience_network
+        automatic:
+          type: boolean
+    FacebookAdgroupTargetingSchema:
+      type: object
+      properties:
+        page_types:
+          type: array
+          items:
+            type: string
+            enum:
+              - desktopfeed
+              - mobilefeed
+              - rightcolumn
+              - mobileexternal
+              - instagramstream
+        placements:
+          description: Placements for AdSet targeting.
+          allOf:
+            - $ref: '#/components/schemas/FacebookAdgroupTargetingPlacementsSchema'
+    FacebookAdgroupAttributeTarget:
+      type: object
+      properties:
+        key:
+          type: integer
+          description: Key of the attribute
+        name:
+          type: string
+          description: Name of the attribute
+          example: gender
+      required:
+        - key
+        - name
+    FacebookAdgroupPromotedSchema:
+      type: object
+      properties:
+        segment_eid:
+          type: string
+          minLength: 22
+          maxLength: 22
+          example: BD7JJT2V6JFFFLNXV31234
+    FacebookAdGroupResponse:
+      type: object
+      properties:
+        segments:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdgroupSegmentSchema'
+        bid_amount:
+          type: number
+          description: Bid amount of the AdGroup.
+        geotargets:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdgroupGeotargetSchema'
+        optimization_goal:
+          type: string
+          enum:
+            - IMPRESSIONS
+            - OFFSITE_CONVERSIONS
+            - LINK_CLICKS
+            - LEAD_GENERATION
+            - LANDING_PAGE_VIEWS
+            - AD_RECALL_LIFT
+          description: Goal for AdGroup optimization.
+        status:
+          type: string
+          enum:
+            - live
+            - paused
+            - deleted
+          description: Status of adgroup.
+          example: live
+        ads:
+          type: array
+          items:
+            description: Facebook ad.
+            allOf:
+              - $ref: '#/components/schemas/FacebookAdgroupAdSchema'
+        end_date:
+          type: string
+          format: date-time
+          nullable: true
+          description: End date of AdGroup in ISO-8601 in UTC.
+          example: '2017-07-21T22:19:13.824882'
+        max_age:
+          type: integer
+          nullable: true
+          minimum: 13
+          maximum: 65
+          description: Maximum age for the AdGroup to target. Cannot be less than min_age.
+        targeting:
+          description: AdSet attributes that define who sees an ad.
+          allOf:
+            - $ref: '#/components/schemas/FacebookAdgroupTargetingSchema'
+        eid:
+          type: string
+          minLength: 22
+          maxLength: 22
+          description: EID of adgroup.
+          example: BD7JJT2V6JFFFLNXV38VOL
+        attribute_targets:
+          type: array
+          items:
+            $ref: '#/components/schemas/FacebookAdgroupAttributeTarget'
+        promoted_object:
+          description: Object this AdGroup is promoting across all its ads.
+          allOf:
+            - $ref: '#/components/schemas/FacebookAdgroupPromotedSchema'
+        min_age:
+          type: integer
+          nullable: true
+          minimum: 13
+          maximum: 65
+          description: Minimum age for the AdGroup to target. Cannot be greater than max_age.
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: Datetime of adgroup last edit in ISO-8601 in UTC.
+          example: '2017-07-21T22:19:13.824882'
+        name:
+          type: string
+          description: Name of adgroup.
+          example: My AdGroup
+        campaign_eid:
+          type: string
+          readOnly: true
+          minLength: 22
+          maxLength: 22
+          description: EID of campaign this adgroup is in.
+          example: BD7JJT2V6JFFFLNXV38VOL
+        service:
+          type: string
+          default: facebook
+          enum:
+            - facebook
+          description: Service we should forward the request to.
+        start_date:
+          type: string
+          format: date-time
+          description: Start date of AdGroup in ISO-8601 in UTC.
+          example: '2017-07-21T22:19:13.824882'
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: Datetime of adgroup creation in ISO-8601 in UTC.
+          example: '2017-07-21T22:19:13.824882'
+      required:
+        - name
+        - optimization_goal
+    LinkedinAdGroupResponse:
+      type: object
+      properties:
+        segments:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdgroupSegmentSchema'
+        type:
+          type: string
+          enum:
+            - SPONSORED_UPDATES
+          description: Type of the AdGroup.
+        status:
+          type: string
+          enum:
+            - live
+            - paused
+            - deleted
+          description: Status of adgroup.
+          example: live
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: Datetime of adgroup last edit in ISO-8601 in UTC.
+          example: '2017-07-21T22:19:13.824882'
+        name:
+          type: string
+          description: Name of adgroup.
+          example: My AdGroup
+        campaign_eid:
+          type: string
+          readOnly: true
+          minLength: 22
+          maxLength: 22
+          description: EID of campaign this adgroup is in.
+          example: BD7JJT2V6JFFFLNXV38VOL
+        service:
+          type: string
+          default: linkedin
+          enum:
+            - linkedin
+          description: Service we should forward the request to.
+        objective:
+          type: string
+          default: WEBSITE_TRAFFIC
+          enum:
+            - WEBSITE_TRAFFIC
+          description: Objective of adgroup.
+          example: WEBSITE_TRAFFIC
+        start_date:
+          type: string
+          format: date-time
+          description: Start date of AdGroup in ISO-8601 in UTC.
+          example: '2017-07-21T22:19:13.824882'
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: Datetime of adgroup creation in ISO-8601 in UTC.
+          example: '2017-07-21T22:19:13.824882'
+        ads:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdgroupAdSchema'
+        end_date:
+          type: string
+          format: date-time
+          nullable: true
+          description: End date of AdGroup in ISO-8601 in UTC.
+          example: '2017-07-21T22:19:13.824882'
+        format:
+          type: string
+          enum:
+            - CAROUSEL
+            - FOLLOW_COMPANY
+            - JOBS
+            - SINGLE_VIDEO
+            - SPONSORED_INMAIL
+            - SPOTLIGHT
+            - STANDARD_UPDATE
+            - TEXT_AD
+            - UNSUPPORTED
+          description: The formats of the AdGroup.
+        optimization_target_type:
+          type: string
+          default: MAX_CONVERSION
+          enum:
+            - MAX_CLICK
+            - MAX_IMPRESSION
+            - MAX_CONVERSION
+          description: Optimization target type of adgroup.
+          example: MAX_CONVERSION
+        eid:
+          type: string
+          minLength: 22
+          maxLength: 22
+          description: EID of adgroup.
+          example: BD7JJT2V6JFFFLNXV38VOL
+    PinterestAdgroupSegmentSchema:
+      type: object
+      properties:
+        targeted:
+          type: boolean
+          description: Should we target or exclude this segment.
+          example: true
+        eid:
+          type: string
+          description: Segment EID.
+          example: R1H7HY2OP4EC2UAYHJ6UPS
+      required:
+        - eid
+    TargetingSpecSchema:
+      type: object
+      properties:
+        AUDIENCE_EXCLUDE:
+          type: array
+          items:
+            type: string
+        LOCATION:
+          type: array
+          items:
+            type: string
+        GEO:
+          type: array
+          items:
+            type: string
+        AUDIENCE_INCLUDE:
+          type: array
+          items:
+            type: string
+    GeolocationDetailsSchema:
+      type: object
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+        parent_id:
+          type: string
+        external_id:
+          type: string
+        geolocation_type:
+          type: string
+        country_code:
+          type: string
+        eid:
+          type: string
+    PinterestAdgroupAdSchema:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of ad
+          example: My Pinterest ad
+        status:
+          type: string
+          description: Adgroup ad status
+          example: live
+        eid:
+          type: string
+          description: Ad eid.
+          example: BD7JJT2V6JFFFLNXV38444
+      required:
+        - eid
+        - status
+    SyncStatusSchema:
+      type: object
+      properties:
+        status:
+          type: string
+          description: Sync status string.
+          example: imported
+    PinterestAdgroupResponse:
+      type: object
+      properties:
+        segments:
+          type: array
+          items:
+            description: Pinterest segment.
+            allOf:
+              - $ref: '#/components/schemas/PinterestAdgroupSegmentSchema'
+        targeting_spec:
+          description: Targeting specification defining targeted audience
+          example: '{"AUDIENCE_INCLUDE":[],"GEO":["IE-D"],"LOCATION":["MX","IT","IE"],"AUDIENCE_EXCLUDE":[]}'
+          allOf:
+            - $ref: '#/components/schemas/TargetingSpecSchema'
+        geolocation_details:
+          type: array
+          items:
+            description: Adgroup geolocation details
+            allOf:
+              - $ref: '#/components/schemas/GeolocationDetailsSchema'
+        billable_event:
+          type: string
+          enum:
+            - CLICKTHROUGH
+            - IMPRESSION
+            - VIDEO_V_50_MRC
+          description: The billable event of the Adgroup
+          example: CLICKTHROUGH
+        status:
+          type: string
+          enum:
+            - live
+            - paused
+            - deleted
+          description: Status of adgroup.
+          example: live
+        key:
+          type: string
+          minLength: 1
+          description: 'Key to identify the adgroup. It will be used to key error responses when multiple adgroups are created/edited at once. Defaults to the adgroup eid, if it already exists, and the index of the adgroup in the list otherwise.'
+          example: '1'
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: Datetime of adgroup last edit in ISO-8601 in UTC.
+          example: '2017-07-21T22:19:13.824882'
+        auto_targeting_enabled:
+          type: boolean
+          description: Determines if an adgroup automatically generates targeting
+        name:
+          type: string
+          description: Name of adgroup.
+          example: My AdGroup
+        campaign_eid:
+          type: string
+          readOnly: true
+          minLength: 22
+          maxLength: 22
+          description: EID of campaign this adgroup is in.
+          example: BD7JJT2V6JFFFLNXV38VOL
+        service:
+          type: string
+          default: pinterest
+          enum:
+            - pinterest
+          description: Service we should forward the request to
+        start_date:
+          type: string
+          format: date-time
+          nullable: true
+          description: Start date of adgroup
+          example: '2022-03-17T23:10:00+00:00'
+        ads:
+          type: array
+          items:
+            description: Pinterest ad.
+            allOf:
+              - $ref: '#/components/schemas/PinterestAdgroupAdSchema'
+        end_date:
+          type: string
+          format: date-time
+          nullable: true
+          description: End date of adgroup
+          example: '2022-03-17T23:10:00+00:00'
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: Datetime of adgroup creation in ISO-8601 in UTC.
+          example: '2017-07-21T22:19:13.824882'
+        sync_status:
+          description: sync_status of the adgroup.
+          allOf:
+            - $ref: '#/components/schemas/SyncStatusSchema'
+        bid_strategy_type:
+          type: string
+          description: The adgroup bid strategy type
+          example: AUTOMATIC_BID
+        ads_manager_permalink:
+          type: string
+          nullable: true
+          description: The adgroup ads_manager_permalink
+        eid:
+          type: string
+          minLength: 22
+          maxLength: 22
+          description: EID of adgroup.
+          example: BD7JJT2V6JFFFLNXV38VOL
+    TiktokAdgroupSegmentSchema:
+      type: object
+      properties:
+        targeted:
+          type: boolean
+          description: Should we target or exclude this segment.
+          example: true
+        eid:
+          type: string
+          description: Segment EID.
+          example: R1H7HY2OP4EC2UAYHJ6UPS
+      required:
+        - eid
+    TiktokAdgroupAdSchema:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of ad
+          example: My TikTok ad
+        status:
+          type: string
+          description: Adgroup ad status
+          example: live
+        eid:
+          type: string
+          description: Ad eid.
+          example: BD7JJT2V6JFFFLNXV38444
+      required:
+        - eid
+        - status
+    TiktokGeolocationDetailsSchema:
+      type: object
+      properties:
+        name:
+          type: string
+        next_level_ids:
+          type: array
+          items:
+            type: integer
+        area_type:
+          type: string
+        allowed_placements:
+          type: array
+          items:
+            type: string
+        parent_id:
+          type: integer
+        region_code:
+          type: string
+        external_id:
+          type: string
+        support_below_18:
+          type: boolean
+        level:
+          type: string
+        eid:
+          type: string
+        allowed_objective_types:
+          type: array
+          items:
+            type: string
+    TiktokAdgroupResponse:
+      type: object
+      properties:
+        segments:
+          type: array
+          items:
+            description: TikTok segments
+            allOf:
+              - $ref: '#/components/schemas/TiktokAdgroupSegmentSchema'
+        interest_category_v2:
+          type: array
+          nullable: true
+          description: List of interest categories of the AdGroup
+          items:
+            type: integer
+        geotargets:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdgroupGeotargetSchema'
+        external_type:
+          type: string
+          enum:
+            - APP_ANDROID
+            - APP_IOS
+            - WEBSITE
+            - LEAD_GENERATION
+            - WEBSITE_OR_DISPLAY
+            - TIKTOK_SHOP
+            - VIDEO_SHOPPING
+            - LIVE_SHOPPING
+          description: Promotion type
+        status:
+          type: string
+          enum:
+            - live
+            - paused
+            - deleted
+          description: Status of adgroup.
+          example: live
+        bid_type:
+          type: string
+          enum:
+            - BID_TYPE_CUSTOM
+            - BID_TYPE_NO_BID
+          nullable: true
+          description: The Bid Type of the AdGroup
+        pacing:
+          type: string
+          enum:
+            - PACING_MODE_SMOOTH
+            - PACING_MODE_FAST
+        placement:
+          type: array
+          description: Where you want to deliver the ads
+          items:
+            type: string
+        billing_event:
+          type: string
+          enum:
+            - CPC
+            - CPM
+            - CPV
+            - OCPC
+            - GD
+            - OCPM
+          description: Billing event
+        action_v2:
+          type: array
+          nullable: true
+          description: Ad group action_v2 data.
+          items:
+            type: object
+        ads:
+          type: array
+          items:
+            description: Tiktok ads
+            allOf:
+              - $ref: '#/components/schemas/TiktokAdgroupAdSchema'
+        end_date:
+          type: string
+          format: date-time
+          nullable: true
+          description: The AdGroup's scheduled end time
+        eid:
+          type: string
+          minLength: 22
+          maxLength: 22
+          description: EID of adgroup.
+          example: BD7JJT2V6JFFFLNXV38VOL
+        automated_targeting:
+          type: string
+          nullable: true
+          description: The status of automated targeting of the AdGroup
+        optimize_goal:
+          type: string
+          enum:
+            - CLICK
+            - CONVERT
+            - INSTALL
+            - IN_APP_EVENT
+            - SHOW
+            - VIDEO_VIEW
+            - REACH
+            - LEAD_GENERATION
+            - FOLLOWERS
+            - PROFILE_VIEWS
+            - VALUE
+            - MT_LIVE_ROOM
+            - PRODUCT_CLICK_IN_LIVE
+          description: The Optimize goal of the AdGroup
+        conversion_bid:
+          type: number
+          nullable: true
+          description: The Conversion Bid of the AdGroup
+        geolocation_details:
+          type: array
+          items:
+            description: Adgroup geolocation details
+            allOf:
+              - $ref: '#/components/schemas/TiktokGeolocationDetailsSchema'
+        bid:
+          type: number
+          description: The Bid of the AdGroup
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: Datetime of adgroup last edit in ISO-8601 in UTC.
+          example: '2017-07-21T22:19:13.824882'
+        name:
+          type: string
+          description: Name of adgroup.
+          example: My AdGroup
+        campaign_eid:
+          type: string
+          readOnly: true
+          minLength: 22
+          maxLength: 22
+          description: EID of campaign this adgroup is in.
+          example: BD7JJT2V6JFFFLNXV38VOL
+        location:
+          type: array
+          items:
+            type: integer
+        service:
+          type: string
+          default: tiktok
+          enum:
+            - tiktok
+          description: Service we should forward the request to
+        start_date:
+          type: string
+          format: date-time
+          description: The AdGroup's scheduled start time
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: Datetime of adgroup creation in ISO-8601 in UTC.
+          example: '2017-07-21T22:19:13.824882'
+        schedule_type:
+          type: string
+          enum:
+            - SCHEDULE_START_END
+            - SCHEDULE_FROM_NOW
+        placement_type:
+          type: string
+          enum:
+            - PLACEMENT_TYPE_NORMAL
+            - PLACEMENT_TYPE_AUTOMATIC
+          description: The placement strategy
+        cpv_video_duration:
+          type: string
+          enum:
+            - SIX_SECONDS
+            - TWO_SECONDS
+          nullable: true
+          description: Optimized video playback duration
+    WebRetargetingAdGroupCreate:
+      type: object
+      properties:
+        segments:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdgroupSegmentSchema'
+        flights:
+          type: array
+          description: AdGroup flights.
+          items:
+            $ref: '#/components/schemas/AdgroupFlightSchema'
+        name:
+          type: string
+          description: Name of adgroup.
+          example: My AdGroup
+        campaign_eid:
+          type: string
+          readOnly: true
+          minLength: 22
+          maxLength: 22
+          description: EID of campaign this adgroup is in.
+          example: BD7JJT2V6JFFFLNXV38VOL
+        service:
+          type: string
+          default: web-retargeting
+          enum:
+            - web-retargeting
+          description: Service we should forward the request to.
+        device_targets:
+          $ref: '#/components/schemas/AdgroupDeviceTargetSchema'
+        ads:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdgroupAdSchema'
+        geotargets:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdgroupGeotargetSchema'
+        status:
+          type: string
+          enum:
+            - live
+            - paused
+            - deleted
+          description: Status of adgroup.
+          example: live
+    WebProspectingAdGroupCreate:
+      type: object
+      properties:
+        attribute_targets:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProspectingAttributeTarget'
+        contextual_targets:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProspectingContextualTarget'
+        flights:
+          type: array
+          description: AdGroup flights.
+          items:
+            $ref: '#/components/schemas/AdgroupFlightSchema'
+        name:
+          type: string
+          description: Name of adgroup.
+          example: My AdGroup
+        campaign_eid:
+          type: string
+          readOnly: true
+          minLength: 22
+          maxLength: 22
+          description: EID of campaign this adgroup is in.
+          example: BD7JJT2V6JFFFLNXV38VOL
+        service:
+          type: string
+          default: web-prospecting
+          enum:
+            - web-prospecting
+          description: Service we should forward the request to.
+        device_targets:
+          $ref: '#/components/schemas/AdgroupDeviceTargetSchema'
+        ads:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdgroupAdSchema'
+        attribute_targets_segment:
+          type: string
+          readOnly: true
+          minLength: 22
+          maxLength: 22
+          description: EID of the attribute segments.
+          example: BD7JJT2V6JFFFLNXV38VOL
+        geotargets:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdgroupGeotargetSchema'
+        auto_geo_targets:
+          type: boolean
+        auto_audience:
+          type: boolean
+        status:
+          type: string
+          enum:
+            - live
+            - paused
+            - deleted
+          description: Status of adgroup.
+          example: live
+    WebRetargetingAdGroupEdit:
+      type: object
+      properties:
+        segments:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdgroupSegmentSchema'
+        name:
+          type: string
+          description: Name of adgroup.
+          example: My AdGroup
+        campaign_eid:
+          type: string
+          readOnly: true
+          minLength: 22
+          maxLength: 22
+          description: EID of campaign this adgroup is in.
+          example: BD7JJT2V6JFFFLNXV38VOL
+        flights:
+          type: array
+          description: AdGroup flights.
+          items:
+            $ref: '#/components/schemas/AdgroupFlightSchema'
+        service:
+          type: string
+          default: web-retargeting
+          enum:
+            - web-retargeting
+          description: Service we should forward the request to.
+        device_targets:
+          $ref: '#/components/schemas/AdgroupDeviceTargetSchema'
+        ads:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdgroupAdSchema'
+        geotargets:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdgroupGeotargetSchema'
+        eid:
+          type: string
+          minLength: 22
+          maxLength: 22
+          description: EID of adgroup.
+          example: BD7JJT2V6JFFFLNXV38VOL
+        status:
+          type: string
+          enum:
+            - live
+            - paused
+            - deleted
+          description: Status of adgroup.
+          example: live
+    WebProspectingAdGroupEdit:
+      type: object
+      properties:
+        attribute_targets:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProspectingAttributeTarget'
+        flights:
+          type: array
+          description: AdGroup flights.
+          items:
+            $ref: '#/components/schemas/AdgroupFlightSchema'
+        contextual_targets:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProspectingContextualTarget'
+        device_targets:
+          $ref: '#/components/schemas/AdgroupDeviceTargetSchema'
+        geotargets:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdgroupGeotargetSchema'
+        auto_audience:
+          type: boolean
+        status:
+          type: string
+          enum:
+            - live
+            - paused
+            - deleted
+          description: Status of adgroup.
+          example: live
+        name:
+          type: string
+          description: Name of adgroup.
+          example: My AdGroup
+        campaign_eid:
+          type: string
+          readOnly: true
+          minLength: 22
+          maxLength: 22
+          description: EID of campaign this adgroup is in.
+          example: BD7JJT2V6JFFFLNXV38VOL
+        service:
+          type: string
+          default: web-prospecting
+          enum:
+            - web-prospecting
+          description: Service we should forward the request to.
+        ads:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdgroupAdSchema'
+        attribute_targets_segment:
+          type: string
+          readOnly: true
+          minLength: 22
+          maxLength: 22
+          description: EID of the attribute segments.
+          example: BD7JJT2V6JFFFLNXV38VOL
+        auto_geo_targets:
+          type: boolean
+        eid:
+          type: string
+          minLength: 22
+          maxLength: 22
+          description: EID of adgroup.
+          example: BD7JJT2V6JFFFLNXV38VOL
+    WebRetargetingKPISchema:
+      type: object
+      properties:
+        metric:
+          type: string
+          enum:
+            - ROI
+            - CPC
+            - CPM
+            - CPA
+            - Spend
+          description: Kpi metric.
+          example: clicks
+        goal:
+          type: number
+          nullable: true
+          minimum: 0
+          description: Kpi goal.
+          example: 12.5
+      required:
+        - metric
+    CampaignDaypartingScheduleSchema:
+      type: object
+      properties:
+        day:
+          type: string
+          enum:
+            - mon
+            - tue
+            - wed
+            - thu
+            - fri
+            - sat
+            - sun
+        active_hours:
+          type: array
+          items:
+            type: integer
+            minimum: 0
+            maximum: 23
+      required:
+        - day
+    CampaignDaypartingSchema:
+      type: object
+      properties:
+        schedule:
+          type: array
+          items:
+            $ref: '#/components/schemas/CampaignDaypartingScheduleSchema'
+        is_automatic:
+          type: boolean
+          description: Should dayparting be automated.
+          example: true
+      required:
+        - is_automatic
+    WebRetargetingCampaignResponse:
+      type: object
+      properties:
+        key:
+          type: string
+          minLength: 1
+          description: 'Key to identify the campaign. It will be used to key error responses when multiple campaigns are created/edited at once. Defaults to the campaign eid, if it already exists, and the index of the campaign in the list otherwise.'
+          example: '1'
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: Datetime of campaign last edit in ISO-8601 in UTC.
+          example: '2017-07-21T22:19:13.824882'
+        name:
+          type: string
+          description: Name of campaign.
+          example: My campaign
+        kpi:
+          $ref: '#/components/schemas/WebRetargetingKPISchema'
+        service:
+          type: string
+          default: web-retargeting
+          enum:
+            - web-retargeting
+          description: Service we should forward the request to.
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: Datetime of campaign creation in ISO-8601 in UTC.
+          example: '2017-07-21T22:19:13.824882'
+        dayparting:
+          $ref: '#/components/schemas/CampaignDaypartingSchema'
+        frequency_cap:
+          type: integer
+          nullable: true
+          minimum: 1
+          maximum: 100
+          description: Cap how many times your ads appear to the same person. Set to null for automatic.
+        daily_budget:
+          type: number
+          description: 'Daily budget to allocate for the campaign. This setting can only be used when the strategy is set to budget_balancing_automated = False, otherwise an error will be thrown.'
+        adgroups:
+          type: array
+          items:
+            $ref: '#/components/schemas/WebRetargetingAdGroupResponse'
+        eid:
+          type: string
+          minLength: 22
+          maxLength: 22
+          description: EID of campaign.
+          example: BD7JJT2V6JFFFLNXV38VOL
+        status:
+          type: string
+          enum:
+            - live
+            - paused
+            - deleted
+          description: Status of campaign.
+          example: live
+    WebProspectingKPISchema:
+      type: object
+      properties:
+        metric:
+          type: string
+          enum:
+            - CPC
+            - CPM
+            - Spend
+          description: Kpi metric.
+          example: clicks
+        goal:
+          type: number
+          nullable: true
+          minimum: 0
+          description: Kpi goal.
+          example: 12.5
+      required:
+        - metric
+    WebProspectingContextualTargetingSchema:
+      type: object
+      properties:
+        category_id:
+          type: integer
+        category_name:
+          type: string
+    WebProspectingCampaignResponse:
+      type: object
+      properties:
+        key:
+          type: string
+          minLength: 1
+          description: 'Key to identify the campaign. It will be used to key error responses when multiple campaigns are created/edited at once. Defaults to the campaign eid, if it already exists, and the index of the campaign in the list otherwise.'
+          example: '1'
+        targeting_type:
+          type: string
+          enum:
+            - attribute
+            - contextual
+            - lookalike
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: Datetime of campaign last edit in ISO-8601 in UTC.
+          example: '2017-07-21T22:19:13.824882'
+        name:
+          type: string
+          description: Name of campaign.
+          example: My campaign
+        kpi:
+          $ref: '#/components/schemas/WebProspectingKPISchema'
+        service:
+          type: string
+          default: web-prospecting
+          enum:
+            - web-prospecting
+          description: Service we should forward the request to.
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: Datetime of campaign creation in ISO-8601 in UTC.
+          example: '2017-07-21T22:19:13.824882'
+        dayparting:
+          $ref: '#/components/schemas/CampaignDaypartingSchema'
+        frequency_cap:
+          type: integer
+          minimum: 1
+          maximum: 100
+          description: Cap how many times your ads appear to the same person.
+        has_special_ad_category:
+          type: boolean
+          description: Boolean indicating whether or not the campaign has special ad category.
+          example: true
+        daily_budget:
+          type: number
+          description: 'Daily budget to allocate for the campaign. This setting can only be used when the strategy is set to budget_balancing_automated = False, otherwise an error will be thrown.'
+        adgroups:
+          type: array
+          items:
+            $ref: '#/components/schemas/WebProspectingAdGroupResponse'
+        contextual_targeting_categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/WebProspectingContextualTargetingSchema'
+        eid:
+          type: string
+          minLength: 22
+          maxLength: 22
+          description: EID of campaign.
+          example: BD7JJT2V6JFFFLNXV38VOL
+        status:
+          type: string
+          enum:
+            - live
+            - paused
+            - deleted
+          description: Status of campaign.
+          example: live
+      required:
+        - name
+    FacebookCampaignKPISchema:
+      type: object
+      properties:
+        metric:
+          type: string
+          enum:
+            - CPC
+            - CPM
+            - CPA
+            - CPL
+            - CPRL
+          nullable: true
+          description: Kpi metric.
+          example: cpc
+        goal:
+          type: number
+          nullable: true
+          minimum: 0
+          description: Kpi goal.
+          example: 12.5
+      required:
+        - metric
+    FacebookCampaignResponse:
+      type: object
+      properties:
+        key:
+          type: string
+          minLength: 1
+          description: 'Key to identify the campaign. It will be used to key error responses when multiple campaigns are created/edited at once. Defaults to the campaign eid, if it already exists, and the index of the campaign in the list otherwise.'
+          example: '1'
+        targeting_type:
+          type: string
+          enum:
+            - lookalike
+            - attribute
+          nullable: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: Datetime of campaign last edit in ISO-8601 in UTC.
+          example: '2017-07-21T22:19:13.824882'
+        name:
+          type: string
+          description: Name of campaign.
+          example: My campaign
+        use_case:
+          type: string
+          enum:
+            - mixed
+            - brand_awareness
+            - browse_abandonment
+            - cart_abandonment
+            - loyalty
+          example: cart_abandonment
+        kpi:
+          description: KPI settings for the facebook campaign. Only applied if bid_strategy is `manual`
+          allOf:
+            - $ref: '#/components/schemas/FacebookCampaignKPISchema'
+        service:
+          type: string
+          default: facebook
+          enum:
+            - facebook
+          description: Service we should forward the request to.
+        objective:
+          type: string
+          enum:
+            - CONVERSIONS
+            - LINK_CLICKS
+            - LEAD_GENERATION
+            - PRODUCT_CATALOG_SALES
+            - BRAND_AWARENESS
+          description: Campaign objective
+          example: LEAD_GENERATION
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: Datetime of campaign creation in ISO-8601 in UTC.
+          example: '2017-07-21T22:19:13.824882'
+        cpc:
+          type: number
+          nullable: true
+          minimum: 0.01
+          maximum: 1000
+          description: CPC value is needed for some non-dynamic pricing models.
+        special_ad_category:
+          type: string
+          enum:
+            - HOUSING
+            - CREDIT
+            - EMPLOYMENT
+            - NONE
+          nullable: true
+        goal:
+          type: string
+          enum:
+            - retarget
+            - prospect
+        daily_budget:
+          type: number
+          description: 'Daily budget to allocate for the campaign. This setting can only be used when the strategy is set to budget_balancing_automated = False, otherwise an error will be thrown.'
+        adgroups:
+          type: array
+          items:
+            $ref: '#/components/schemas/FacebookAdGroupResponse'
+        eid:
+          type: string
+          minLength: 22
+          maxLength: 22
+          description: EID of campaign.
+          example: BD7JJT2V6JFFFLNXV38VOL
+        status:
+          type: string
+          enum:
+            - live
+            - paused
+            - deleted
+          description: Status of campaign.
+          example: live
+      required:
+        - name
+        - objective
+    CampaignKPISchema:
+      type: object
+      properties:
+        metric:
+          type: string
+          enum:
+            - CPC
+            - CPM
+            - CPA
+            - Spend
+          description: Kpi metric.
+          example: clicks
+        goal:
+          type: number
+          nullable: true
+          minimum: 0
+          description: Kpi goal.
+          example: 12.5
+      required:
+        - metric
+    LinkedinCampaignResponse:
+      type: object
+      properties:
+        key:
+          type: string
+          minLength: 1
+          description: 'Key to identify the campaign. It will be used to key error responses when multiple campaigns are created/edited at once. Defaults to the campaign eid, if it already exists, and the index of the campaign in the list otherwise.'
+          example: '1'
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: Datetime of campaign last edit in ISO-8601 in UTC.
+          example: '2017-07-21T22:19:13.824882'
+        name:
+          type: string
+          description: Name of campaign.
+          example: My campaign
+        kpi:
+          $ref: '#/components/schemas/CampaignKPISchema'
+        service:
+          type: string
+          default: linkedin
+          enum:
+            - linkedin
+          description: Service we should forward the request to.
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: Datetime of campaign creation in ISO-8601 in UTC.
+          example: '2017-07-21T22:19:13.824882'
+        audience_network_enabled:
+          type: boolean
+          description: True if the LinkedIn Audience Network should be enabled for the Campaign. False otherwise.
+        daily_budget:
+          type: number
+          description: 'Daily budget to allocate for the campaign. This setting can only be used when the strategy is set to budget_balancing_automated = False, otherwise an error will be thrown.'
+        adgroups:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkedinAdGroupResponse'
+        eid:
+          type: string
+          minLength: 22
+          maxLength: 22
+          description: EID of campaign.
+          example: BD7JJT2V6JFFFLNXV38VOL
+        status:
+          type: string
+          enum:
+            - live
+            - paused
+            - deleted
+          description: Status of campaign.
+          example: live
+    PinterestCampaignResponse:
+      type: object
+      properties:
+        key:
+          type: string
+          minLength: 1
+          description: 'Key to identify the campaign. It will be used to key error responses when multiple campaigns are created/edited at once. Defaults to the campaign eid, if it already exists, and the index of the campaign in the list otherwise.'
+          example: '1'
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: Datetime of campaign last edit in ISO-8601 in UTC.
+          example: '2017-07-21T22:19:13.824882'
+        name:
+          type: string
+          description: Name of campaign.
+          example: My campaign
+        kpi:
+          $ref: '#/components/schemas/CampaignKPISchema'
+        objective_type:
+          type: string
+          enum:
+            - AWARENESS
+            - CONSIDERATION
+            - VIDEO_VIEW
+            - WEB_CONVERSION
+            - CATALOG_SALES
+            - WEB_SESSIONS
+          description: The objective type of the Campaign
+          example: AWARENESS
+        service:
+          type: string
+          default: pinterest
+          enum:
+            - pinterest
+          description: Service we should forward the request to
+        start_date:
+          type: string
+          format: date-time
+          description: Start date of campaign
+          example: '2022-03-17T23:10:00+00:00'
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: Datetime of campaign creation in ISO-8601 in UTC.
+          example: '2017-07-21T22:19:13.824882'
+        end_date:
+          type: string
+          format: date-time
+          nullable: true
+          description: End date of Campaign
+          example: '2022-03-17T23:10:00+00:00'
+        daily_budget:
+          type: number
+          description: 'Daily budget to allocate for the campaign. This setting can only be used when the strategy is set to budget_balancing_automated = False, otherwise an error will be thrown.'
+        adgroups:
+          type: array
+          items:
+            $ref: '#/components/schemas/PinterestAdgroupResponse'
+        eid:
+          type: string
+          minLength: 22
+          maxLength: 22
+          description: EID of campaign.
+          example: BD7JJT2V6JFFFLNXV38VOL
+        status:
+          type: string
+          enum:
+            - live
+            - paused
+            - deleted
+          description: Status of campaign.
+          example: live
+    TiktokCampaignResponse:
+      type: object
+      properties:
+        key:
+          type: string
+          minLength: 1
+          description: 'Key to identify the campaign. It will be used to key error responses when multiple campaigns are created/edited at once. Defaults to the campaign eid, if it already exists, and the index of the campaign in the list otherwise.'
+          example: '1'
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: Datetime of campaign last edit in ISO-8601 in UTC.
+          example: '2017-07-21T22:19:13.824882'
+        name:
+          type: string
+          description: Name of campaign.
+          example: My campaign
+        enable_campaign_budget_optimization:
+          type: boolean
+          nullable: true
+          description: Whether campaign optimization is enabled
+        kpi:
+          $ref: '#/components/schemas/CampaignKPISchema'
+        type:
+          type: string
+          enum:
+            - REGULAR_CAMPAIGN
+            - IOS14_CAMPAIGN
+          description: The type of the Campaign
+        service:
+          type: string
+          default: tiktok
+          enum:
+            - tiktok
+          description: Service we should forward the request to
+        objective_type:
+          type: string
+          enum:
+            - APP_INSTALL
+            - CONVERSIONS
+            - REACH
+            - TRAFFIC
+            - VIDEO_VIEWS
+            - CATALOG_SALES
+            - ENGAGEMENT
+            - LEAD_GENERATION
+            - SHOP_PURCHASES
+            - RF_APP_INSTALL
+            - RF_ENGAGEMENT
+            - RF_REACH
+            - RF_TRAFFIC
+            - RF_VIDEO_VIEW
+          description: The objective type of the Campaign
+        objective:
+          type: string
+          enum:
+            - APP
+            - LANDING_PAGE
+          description: The objective of the Campaign
+        optimize_goal:
+          type: string
+          enum:
+            - CLICK
+            - CONVERT
+            - INSTALL
+            - IN_APP_EVENT
+            - SHOW
+            - VIDEO_VIEW
+            - REACH
+            - LEAD_GENERATION
+            - FOLLOWERS
+            - PROFILE_VIEWS
+            - VALUE
+            - MT_LIVE_ROOM
+            - PRODUCT_CLICK_IN_LIVE
+          nullable: true
+          description: The optimization goal of the Campaign
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: Datetime of campaign creation in ISO-8601 in UTC.
+          example: '2017-07-21T22:19:13.824882'
+        daily_budget:
+          type: number
+          description: 'Daily budget to allocate for the campaign. This setting can only be used when the strategy is set to budget_balancing_automated = False, otherwise an error will be thrown.'
+        adgroups:
+          type: array
+          items:
+            $ref: '#/components/schemas/TiktokAdgroupResponse'
+        eid:
+          type: string
+          minLength: 22
+          maxLength: 22
+          description: EID of campaign.
+          example: BD7JJT2V6JFFFLNXV38VOL
+        status:
+          type: string
+          enum:
+            - live
+            - paused
+            - deleted
+          description: Status of campaign.
+          example: live
+        bid_type:
+          type: string
+          enum:
+            - BID_TYPE_CUSTOM
+            - BID_TYPE_NO_BID
+          nullable: true
+          description: The objective type of the Campaign
+    WebRetargetingCampaignCreate:
+      type: object
+      properties:
+        key:
+          type: string
+          minLength: 1
+          description: 'Key to identify the campaign. It will be used to key error responses when multiple campaigns are created/edited at once. Defaults to the campaign eid, if it already exists, and the index of the campaign in the list otherwise.'
+          example: '1'
+        name:
+          type: string
+          description: Name of campaign.
+          example: My campaign
+        kpi:
+          $ref: '#/components/schemas/WebRetargetingKPISchema'
+        service:
+          type: string
+          default: web-retargeting
+          enum:
+            - web-retargeting
+          description: Service we should forward the request to.
+        dayparting:
+          $ref: '#/components/schemas/CampaignDaypartingSchema'
+        frequency_cap:
+          type: integer
+          nullable: true
+          minimum: 1
+          maximum: 100
+          description: Cap how many times your ads appear to the same person. Set to null for automatic.
+        daily_budget:
+          type: number
+          description: 'Daily budget to allocate for the campaign. This setting can only be used when the strategy is set to budget_balancing_automated = False, otherwise an error will be thrown.'
+        adgroups:
+          type: array
+          items:
+            $ref: '#/components/schemas/WebRetargetingAdGroupCreate'
+    WebProspectingCampaignCreate:
+      type: object
+      properties:
+        key:
+          type: string
+          minLength: 1
+          description: 'Key to identify the campaign. It will be used to key error responses when multiple campaigns are created/edited at once. Defaults to the campaign eid, if it already exists, and the index of the campaign in the list otherwise.'
+          example: '1'
+        targeting_type:
+          type: string
+          enum:
+            - attribute
+            - contextual
+            - lookalike
+        name:
+          type: string
+          description: Name of campaign.
+          example: My campaign
+        kpi:
+          $ref: '#/components/schemas/WebProspectingKPISchema'
+        service:
+          type: string
+          default: web-prospecting
+          enum:
+            - web-prospecting
+          description: Service we should forward the request to.
+        dayparting:
+          $ref: '#/components/schemas/CampaignDaypartingSchema'
+        frequency_cap:
+          type: integer
+          minimum: 1
+          maximum: 100
+          description: Cap how many times your ads appear to the same person.
+        has_special_ad_category:
+          type: boolean
+          description: Boolean indicating whether or not the campaign has special ad category.
+          example: true
+        status:
+          type: string
+          enum:
+            - live
+            - paused
+            - deleted
+          description: Status of campaign.
+          example: live
+        daily_budget:
+          type: number
+          description: 'Daily budget to allocate for the campaign. This setting can only be used when the strategy is set to budget_balancing_automated = False, otherwise an error will be thrown.'
+        adgroups:
+          type: array
+          items:
+            $ref: '#/components/schemas/WebProspectingAdGroupCreate'
+        contextual_targeting_categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/WebProspectingContextualTargetingSchema'
+      required:
+        - name
+    WebRetargetingCreateOrEdit:
+      type: object
+      properties: {}
+    WebRetargetingCampaignEdit:
+      type: object
+      properties:
+        key:
+          type: string
+          minLength: 1
+          description: 'Key to identify the campaign. It will be used to key error responses when multiple campaigns are created/edited at once. Defaults to the campaign eid, if it already exists, and the index of the campaign in the list otherwise.'
+          example: '1'
+        name:
+          type: string
+          description: Name of campaign.
+          example: My campaign
+        kpi:
+          $ref: '#/components/schemas/WebRetargetingKPISchema'
+        service:
+          type: string
+          default: web-retargeting
+          enum:
+            - web-retargeting
+          description: Service we should forward the request to.
+        dayparting:
+          $ref: '#/components/schemas/CampaignDaypartingSchema'
+        frequency_cap:
+          type: integer
+          nullable: true
+          minimum: 1
+          maximum: 100
+          description: Cap how many times your ads appear to the same person. Set to null for automatic.
+        daily_budget:
+          type: number
+          description: 'Daily budget to allocate for the campaign. This setting can only be used when the strategy is set to budget_balancing_automated = False, otherwise an error will be thrown.'
+        adgroups:
+          type: array
+          items:
+            $ref: '#/components/schemas/WebRetargetingCreateOrEdit'
+        eid:
+          type: string
+          minLength: 22
+          maxLength: 22
+          description: EID of campaign.
+          example: BD7JJT2V6JFFFLNXV38VOL
+        status:
+          type: string
+          enum:
+            - live
+            - paused
+            - deleted
+          description: Status of campaign.
+          example: live
+    WebProspectingCreateOrEdit:
+      type: object
+      properties: {}
+    WebProspectingCampaignEdit:
+      type: object
+      properties:
+        key:
+          type: string
+          minLength: 1
+          description: 'Key to identify the campaign. It will be used to key error responses when multiple campaigns are created/edited at once. Defaults to the campaign eid, if it already exists, and the index of the campaign in the list otherwise.'
+          example: '1'
+        name:
+          type: string
+          description: Name of campaign.
+          example: My campaign
+        kpi:
+          $ref: '#/components/schemas/WebProspectingKPISchema'
+        service:
+          type: string
+          default: web-prospecting
+          enum:
+            - web-prospecting
+          description: Service we should forward the request to.
+        dayparting:
+          $ref: '#/components/schemas/CampaignDaypartingSchema'
+        frequency_cap:
+          type: integer
+          minimum: 1
+          maximum: 100
+          description: Cap how many times your ads appear to the same person.
+        has_special_ad_category:
+          type: boolean
+          description: Boolean indicating whether or not the campaign has special ad category.
+          example: true
+        status:
+          type: string
+          enum:
+            - live
+            - paused
+            - deleted
+          description: Status of campaign.
+          example: live
+        daily_budget:
+          type: number
+          description: 'Daily budget to allocate for the campaign. This setting can only be used when the strategy is set to budget_balancing_automated = False, otherwise an error will be thrown.'
+        adgroups:
+          type: array
+          items:
+            $ref: '#/components/schemas/WebProspectingCreateOrEdit'
+        eid:
+          type: string
+          minLength: 22
+          maxLength: 22
+          description: EID of campaign.
+          example: BD7JJT2V6JFFFLNXV38VOL
+        contextual_targeting_categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/WebProspectingContextualTargetingSchema'
+  securitySchemes:
+    oauth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: 'https://services.adroll.com/auth/authorize'
+          tokenUrl: 'https://services.adroll.com/auth/token'
+          refreshUrl: ''
+          scopes:
+            all: ''
+security:
+  - oauth:
+      - all
